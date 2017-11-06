@@ -227,8 +227,8 @@ public class VerifierDeviceIdentity implements Parcelable {
         dest.writeLong(mIdentity);
     }
 
-    public static final Creator<VerifierDeviceIdentity> CREATOR
-            = new Creator<VerifierDeviceIdentity>() {
+    public static final Parcelable.Creator<VerifierDeviceIdentity> CREATOR
+            = new Parcelable.Creator<VerifierDeviceIdentity>() {
         public VerifierDeviceIdentity createFromParcel(Parcel source) {
             return new VerifierDeviceIdentity(source);
         }

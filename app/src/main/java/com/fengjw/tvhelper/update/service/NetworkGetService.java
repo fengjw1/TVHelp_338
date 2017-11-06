@@ -2,10 +2,11 @@ package com.fengjw.tvhelper.update.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.IPackageInstallObserver2;
+import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
-import android.content.pm.VerificationParams;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -331,23 +332,15 @@ public class NetworkGetService extends Service {
 
     public void installPackage(String apkPath)
     {
-        PackageInstallObserver2 installObserver2 = new PackageInstallObserver2();
+        PackageInstallObserver installObserver = new PackageInstallObserver();
         try {
             Class<?> ServiceManager = Class.forName("android.os.ServiceManager");
             Method getService = ServiceManager.getDeclaredMethod("getService", String.class);
             getService.setAccessible(true);
             IBinder packAgeBinder = (IBinder) getService.invoke(null, "package");
             IPackageManager iPm = IPackageManager.Stub.asInterface(packAgeBinder);
-            VerificationParams verificationParams=new VerificationParams();
-            try {
-                Log.i(TGA, "1");
-                iPm.installPackage(apkPath, installObserver2,INSTALL_REPLACE_EXISTING,
-                        new File(apkPath).getPath(),verificationParams,null);
-                Log.i(TGA, "2");
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            iPm.installPackage(Uri.fromFile(new File(apkPath)), installObserver,
+                    INSTALL_REPLACE_EXISTING, new File(apkPath).getPath());
         }catch (Exception e) {
             e.printStackTrace();
             Log.d(TGA, "安装失败1");
@@ -355,20 +348,41 @@ public class NetworkGetService extends Service {
         }
     }
 
-    public class PackageInstallObserver2 extends IPackageInstallObserver2.Stub {
+//    public void installPackage2(String apkPath){
+//        PackageInstallObserver installObserver = new PackageInstallObserver();
+//        try {
+//            Log.d("panzq", "apkPath = "+apkPath);
+//            Class<?> ServiceManager = Class.forName("android.os.ServiceManager");
+//            Method getService = ServiceManager.getDeclaredMethod("getService", String.class);
+//            getService.setAccessible(true);
+//            IBinder packAgeBinder = (IBinder) getService.invoke(null, "package");
+//            IPackageManager iPm = IPackageManager.Stub.asInterface(packAgeBinder);
+//            iPm.installPackage(Uri.fromFile(new File(apkPath)), installObserver,INSTALL_REPLACE_EXISTING, new File(apkPath).getPath());
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d("panzq", "安装失败1");
+//            try {
+//                installObserver.packageInstalled(null, -1);
+//                Log.d("panzq", "安装失败2");
+//            } catch (RemoteException ignore) {
+//                Log.d("panzq", "安装失败3");
+//            }
+//        }
+//    }
+
+    public class PackageInstallObserver extends IPackageInstallObserver.Stub{
 
         @Override
-        public void packageInstalled(String packageName, int returnCode) throws RemoteException {
-            if (returnCode == 1) //返回1表示安装成功，否则安装失败
+        public void packageInstalled(String packageName, int returnCode)throws RemoteException {
+            if(returnCode==1) //返回1表示安装成功，否则安装失败
             {
-                //Toast.makeText(NetworkGetService.this, "安装成功！", Toast.LENGTH_SHORT).show();
-                Log.e(TGA, "packageName=" + packageName + ",returnCode=" + returnCode);
-            } else {
-                //Toast.makeText(NetworkGetService.this, "安装失败！", Toast.LENGTH_SHORT).show();
-                Log.d(TGA, "安装失败！");
-                stopSelf();
+                Toast.makeText(NetworkGetService.this, "安装成功！", Toast.LENGTH_SHORT).show();
+                Log.e("panzq", "packageName="+packageName+",returnCode="+returnCode);
+            }else{
+                Toast.makeText(NetworkGetService.this, "安装失败！", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
 
@@ -407,7 +421,13 @@ public class NetworkGetService extends Service {
                         Log.d(TGA, progress.filePath);
                 //ApkUtils.install(getApplicationContext(), new File(progress.filePath));
                 //mDownloadTask.remove(true);
-                installPackage(progress.filePath);
+
+                //jungle SDK Version
+                int version = Build.VERSION.SDK_INT;
+                Log.d(TGA, "SDK : " + version);
+                //if (version >= 23){
+                    installPackage(progress.filePath);
+                //}
                 //mDownloadTask.remove();
                 Log.d(TGA, "从installPackage退出了！");
                 //stopSelf();

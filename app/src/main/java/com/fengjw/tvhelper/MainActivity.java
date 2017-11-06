@@ -10,44 +10,21 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.settingslib.applications.ApplicationsState;
 import com.fengjw.tvhelper.recenttask.RecentTaskActivity;
-import com.fengjw.tvhelper.stop.StopRunActivity;
-import com.fengjw.tvhelper.stop.utils.AppsInfo;
-import com.fengjw.tvhelper.stop.utils.DomXml;
-import com.fengjw.tvhelper.stop.utils.Filter;
-import com.fengjw.tvhelper.stop.utils.ForceStopManager;
-import com.fengjw.tvhelper.stop.utils.StopAppInfo;
 import com.fengjw.tvhelper.update.DownloadAllActivity;
 
 import org.evilbinary.tv.widget.BorderView;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.fengjw.tvhelper.stop.StopRunningActivity.TGA;
-
-
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private RelativeLayout mLayout;
-    private ForceStopManager mForceStopManager;
-    private ApplicationsState mApplicationsState;
-    private StopAppInfo mInfo;
 
     /*
     这里是预加载一次
      */
-    private AppsInfo mAppsInfo;
-    private List<StopAppInfo> mAppInfoList;
-    private List<ApplicationsState.AppEntry> mList;
 
     private String fileName = Environment.getExternalStoragePublicDirectory
             (Environment.DIRECTORY_DOWNLOADS).getPath() + "/filter.txt";
-    private DomXml mXml;
-    private String str_write;
-    private List<Filter> mFilters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

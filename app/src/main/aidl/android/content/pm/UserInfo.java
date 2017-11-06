@@ -87,8 +87,8 @@ public class UserInfo implements Parcelable {
         dest.writeInt(flags);
     }
 
-    public static final Creator<UserInfo> CREATOR
-            = new Creator<UserInfo>() {
+    public static final Parcelable.Creator<UserInfo> CREATOR
+            = new Parcelable.Creator<UserInfo>() {
         public UserInfo createFromParcel(Parcel source) {
             return new UserInfo(source);
         }

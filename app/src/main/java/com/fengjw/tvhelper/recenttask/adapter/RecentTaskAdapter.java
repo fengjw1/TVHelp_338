@@ -14,12 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fengjw.tvhelper.R;
-import com.fengjw.tvhelper.stop.adapter.AppsAdapter;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static com.fengjw.tvhelper.stop.StopRunningActivity.TGA;
 
 /**
  * Created by fengjw on 2017/10/27.

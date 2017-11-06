@@ -139,8 +139,8 @@ public class ParceledListSlice<T extends Parcelable> implements Parcelable {
     }
 
     @SuppressWarnings("unchecked")
-    public static final Creator<ParceledListSlice> CREATOR =
-            new Creator<ParceledListSlice>() {
+    public static final Parcelable.Creator<ParceledListSlice> CREATOR =
+            new Parcelable.Creator<ParceledListSlice>() {
         public ParceledListSlice createFromParcel(Parcel in) {
             final int numItems = in.readInt();
             final boolean lastSlice = in.readInt() == 1;

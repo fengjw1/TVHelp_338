@@ -19,9 +19,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
-import com.android.settingslib.applications.ApplicationsState;
-import com.fengjw.tvhelper.stop.utils.AppsInfo;
-import com.fengjw.tvhelper.stop.utils.StopAppInfo;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -45,7 +42,6 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 
-import static com.fengjw.tvhelper.stop.StopRunningActivity.TGA;
 
 /**
  * ================================================
@@ -61,11 +57,6 @@ public class GApp extends Application {
     /*
     这里是预加载一次
      */
-    private AppsInfo mAppsInfo;
-    private List<StopAppInfo> mAppInfoList;
-    private List<ApplicationsState.AppEntry> mList;
-
-    private ApplicationsState mApplicationsState;
     private Activity mActivity;
 
     @Override
@@ -76,41 +67,9 @@ public class GApp extends Application {
 //        System.setProperty("http.proxyPort", "8888");
 
         initOkGo();
-        init();
 
     }
 
-    private void init(){
-        try {
-            mApplicationsState = ApplicationsState.getInstance(this);
-            mActivity = new Activity();
-            mAppsInfo = new AppsInfo(mActivity);
-            mAppInfoList = new ArrayList<>();
-            Log.d(TGA, "Enter mAppInfo");
-            mAppsInfo.init();
-            mList = mAppsInfo.rebuildRunning();
-
-            Log.d(TGA, "mList Size is " + mList.size());
-            for (ApplicationsState.AppEntry appEntry : mList){
-                try {
-                    StopAppInfo appInfo = new StopAppInfo(this, appEntry);
-                    mAppInfoList.add(appInfo);
-                }catch (Exception e){
-                    Log.d(TGA, e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-            for (StopAppInfo appInfo : mAppInfoList){
-                Log.d(TGA, "appInfo: name =" + appInfo.getName()
-                        + " CacheSize =" + appInfo.getCacheSize()
-                        + " DateSize =" + appInfo.getDataSize()
-                        + " Size =" + appInfo.getSize()
-                        + " Version =" + appInfo.getVersion());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void initOkGo() {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
