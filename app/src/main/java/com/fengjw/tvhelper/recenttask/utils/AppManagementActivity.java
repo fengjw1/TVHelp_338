@@ -180,7 +180,8 @@ public class AppManagementActivity extends AppCompatActivity implements View.OnC
                 this.setResult(STOP_RUN);
                 ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                 Log.d("fengjw", "id : " + (int)appInfos.get(position).get("id"));
-                am.removeTask((int)appInfos.get(position).get("id"));
+                am.removeTask((int)appInfos.get(position).get("id"),0x0001);
+                //am.removeTask((int)appInfos.get(position).get("id"));
                 finish();
                 break;
             default:

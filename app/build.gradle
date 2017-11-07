@@ -7,8 +7,8 @@ android {
         applicationId "com.fengjw.tvhelper"
         minSdkVersion 17
         targetSdkVersion 19
-        versionCode 3
-        versionName "2.0"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -30,7 +30,7 @@ android {
 
 dependencies {
     provided files('libs/framework.jar')
-//    compile files('libs/classes.jar')
+    //    compile files('libs/classes.jar')
     compile project(':lib')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -48,7 +48,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
-    compile files('libs/javalib.jar')
-    compile files('libs/recentlib.jar')
-    compile files('libs/classes-full-debug.jar')
 }

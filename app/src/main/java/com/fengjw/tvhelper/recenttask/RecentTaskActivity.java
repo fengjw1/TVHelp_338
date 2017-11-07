@@ -34,7 +34,6 @@ public class RecentTaskActivity extends AppCompatActivity{
     private static ActivityManager am;
     private static String apps = "";
     private StaggeredGridLayoutManager mLayoutManager;
-    private List<ActivityManager.AppTask> appTasks;
     private Intent intent;
     private int resultPosition;
     private static final int STOP_RUN = 1;
