@@ -79,8 +79,7 @@
         <!--</activity>-->
         <!--<activity android:name=".stop.AppManagementActivity">-->
         <!--</activity>-->
-        <activity android:name=".recenttask.RecentTaskActivity"
-                  android:launchMode="singleInstance">
+        <activity android:name=".recenttask.RecentTaskActivity">
         </activity>
         <activity android:name=".recenttask.utils.AppManagementActivity"/>
     </application>

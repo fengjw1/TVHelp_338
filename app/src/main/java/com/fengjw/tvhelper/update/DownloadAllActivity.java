@@ -37,7 +37,6 @@ import android.widget.Toast;
 
 import com.fengjw.tvhelper.R;
 import com.fengjw.tvhelper.update.adapter.DownloadAdapter;
-import com.fengjw.tvhelper.update.service.NetworkGetService;
 import com.lzy.okserver.OkDownload;
 import com.lzy.okserver.download.DownloadTask;
 import com.lzy.okserver.task.XExecutor;
